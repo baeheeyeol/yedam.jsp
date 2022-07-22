@@ -1,33 +1,37 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-<meta charset="UTF-8">
-<title>html/get.html</title>
+	<meta charset="UTF-8">
+	<title>html/get.html</title>
 </head>
+
 <body>
-<h3>post방식요청</h3>
+	<h3>post방식요청</h3>
 	<form action="../addMember" method='post'>
 		UserName: <input type="text" name="user_name"><br>
 		PassWord: <input type="password" name="user_pass"><br>
 		Role: <SELECT type="number" name="role">
-		<OPTION VALUE=0>관리자</OPTION>
-		<OPTION VALUE=1>사용자</OPTION>
+			<OPTION VALUE=0>관리자</OPTION>
+			<OPTION VALUE=1>사용자</OPTION>
 		</SELECT><br>
 		<input type="submit" value="Send">
 	</form>
 	<script>
-	let frm =document.querySelector('form');
-	frm.addEventListener('submit',function(e){
-		e.preventDefault();
-		let name =document.querySelector('input[name="user_name"]').value;
-		let password =document.querySelector('input[name="user_pass"]').value;
-		let role=document.querySelector('select[name="role"]').value;
-		if(name==""||password==""||role==""){
-			alert("값을 입력")
-			return;
-		}this.submit();
-	});
+		let frm = document.querySelector('form');
+		frm.addEventListener('submit', function (e) {
+			e.preventDefault();
+			let name = document.querySelector('input[name="user_name"]').value;
+			let password = document.querySelector('input[name="user_pass"]').value;
+			let role = document.querySelector('select[name="role"]').value;
+			if (name == "" || password == "" || role == "") {
+				alert("값을 입력")
+				return;
+			}
+			this.submit();
+		});
 	</script>
 
 </body>
+
 </html>

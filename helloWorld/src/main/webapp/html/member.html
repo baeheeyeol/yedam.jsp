@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+</head>
+
+<body>
+	<h3>회원정보</h3>
+	<form action="queryTest" method="post">
+		ID: <input type="text" name="id" id="id"><br> 비밀번호: <input
+			type="password" name="pwd"><br> 이름: <input type="text"
+			name="name" id="name"><br> 취미: <input type="checkbox"
+			name="hobby" value="climbing">등산 <input type="checkbox"
+			name="hobby" value="sport">운동 <input type="checkbox"
+			name="hobby" value="reading">독서 <input type="checkbox"
+			name="hobby" value="traveling">여행<br> 성별: <input
+			type="radio" name="gender" value="male">남자 <input
+			type="radio" name="gender" value="female">여자<br> 종교: <select
+			name="religion">
+			<option value="christianity">기독교</option>
+			<option value="buddhism">불교</option>
+			<option value="catholicism">천주교</option>
+			<option value="atheism">무교</option>
+		</select><br> 자기소개: <br>
+		<textarea name="introduction" cols="30" rows="10"></textarea>
+		<br> <input type="submit" value="전송"> <input type="reset"
+			value="초기화">
+	</form>
+	<script>
+	  // console.log(encodeURI("홍길동"));
+		let str = 'id=1231&pwd=123&name=123&hobby=climbing&gender=male&religion=buddhism&introduction=123'
+		let result = getParameter(str, 'pwd');
+		function getParameter(querystring, param) {
+      return querystring.indexof(param)
+   
+		}
+		console.log(result);
+	</script>
+
+</body>
+
+</html>

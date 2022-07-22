@@ -1,4 +1,4 @@
-package com.edu;
+package com.edu.common;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -7,7 +7,7 @@ import java.util.List;
 public class EmpDAO extends DAO {
 
 	// 변경.
-	public void updateMember(String name, String pass, String role) {
+	public boolean updateMember(String name, String pass, String role) {
 		connect();
 		String sql = "update members " + "set member_password =?," + "member_role =?" + "where member_id =?";
 		try {
@@ -16,16 +16,20 @@ public class EmpDAO extends DAO {
 			pstmt.setString(2, role);
 			pstmt.setString(3, name);
 			int r = pstmt.executeUpdate();
+			if(r>0) {
+				return true;
+			}
 			System.out.println(r + "건 입력됨.");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			disconnect();
 		}
+		return false;
 	}
 
 	// user_name,user_pass,role => 입력
-	public void insertMember(String name, String pass, String role) {
+	public boolean insertMember(String name, String pass, String role) {
 		connect();
 		String sql = "insert into members values(?,?,?)";
 		try {
@@ -34,12 +38,16 @@ public class EmpDAO extends DAO {
 			pstmt.setString(2, pass);
 			pstmt.setString(3, role);
 			int r = pstmt.executeUpdate();
+			if(r>0) {
+				return true;
+			}
 			System.out.println(r + "건 입력됨.");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			disconnect();
 		}
+		return false;
 	}
 
 	public List<Employee> getEmpInfo(String name) {
