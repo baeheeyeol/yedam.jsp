@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    #show {
+      width: 450px;
+      height: 210px;
+      background-color: yellow;
+    }
+
+    #show>span {
+      display: inline-block;
+      width: 80px;
+      height: 25px;
+      background-color: aqua;
+      border: 1px solid black;
+      padding: 2px;
+      margin: 2px;
+    }
+  </style>
+</head>
+
+<body>
+  <input type="text" name="user-input" id="user-input" autofocus>
+  <div id="show"></div>
+  <p id="sec">60</p>
+  <script>
+    let words =
+      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo labore vitae iste rerum facere ipsum possimus ut est, rem aspernatur in autem velit mollitia officia modi magnam vel id sequi?'
+    let wordList = words.split(' ');
+    let show = document.getElementById('show');
+    for (let word of wordList) {
+      let span = document.createElement('span');
+      span.innerText = word;
+      show.append(span);
+    }
+    let str = document.querySelector("#user-input")
+    str.onchange = function () {
+      for (let i = 1; i < 31; i++) {
+        if (str.value === document.querySelector(`#show>span:nth-child(${i})`).innerText) {
+          document.querySelector(`#show>span:nth-child(${i})`).remove();
+          str.value="";
+        }
+      }
+    }
+    let sec = document.querySelector('#sec');
+    let a =setInterval(function() {
+      if(sec.innerText>0){
+        sec.innerText--;
+      }
+    }, 1000);
+  </script>
+</body>
+
+</html>
