@@ -25,7 +25,6 @@ public class ThirdServlet extends HttpServlet {
 		dao.getEmpInfo("Steven");
 		List<Employee> list = dao.getEmpInfo("value");
 		PrintWriter out = resp.getWriter();
-
 		out.print("<table border='1'>");
 		out.print("<thead><tr><th>사원번호</th><th>성</th><th>이름</th><th>이메일</th><th>급여</th></tr></thead>");
 		out.print("<tbody>");
