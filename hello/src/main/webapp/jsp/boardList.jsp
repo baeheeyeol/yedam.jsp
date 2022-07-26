@@ -3,13 +3,36 @@
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>jsp/boardList.jsp</title>
 </head>
 <body>
+	<%
+	String id = (String) session.getAttribute("loginId");
+	if (id != null) {
+		out.print("<h3>" + id + "님으로 로그인되었습니다.</h3>");
+		out.print("<a href='logout.jsp'>로그아웃</a>");
+	} else {
+		out.print("<h3>손님입니다.</h3>");
+	}
+	%>
+	<c:choose>
+		<c:when test="${!empty loginId }">
+			<h3>
+				<c:out value="${loginId }"><</c:out>
+				님으로 로그인했습니다.
+			</h3>
+		</c:when>
+		<c:otherwise>
+			<h3>손님입니다.</h3>
+		</c:otherwise>
+	</c:choose>
+	${loginId }
+
 	<table border='1'>
 		<thead>
 			<tr>
@@ -24,19 +47,20 @@
 			<%
 			BoardDAO bDAO = new BoardDAO();
 			List<BoardVO> list = bDAO.boardList();
-			for (BoardVO vo:list) {
+			//for (BoardVO vo : list) {
 			%>
+			<c:set var="boards" value="<%=list %>" />
+			<c:forEach var="vo" items="${boards }">
 			<tr>
-				<td><a href="boardDetail.jsp?id=<%=vo.getBoardId()%>"><%=vo.getBoardId()%></a></td>
-				<td><%=vo.getTitle()%></td>
-				<td><%=vo.getWriter()%></td>
-				<td><%=vo.getCreateDate()%></td>
-				<td><%=vo.getCnt()%></td>
-				<%
-				}
-				%>
+				<td><a href="boardDetail.jsp?id=${vo.boardId} ">${vo.boardId }</a></td>
+				<td>${vo.title }</td>
+				<td>${vo.writer }</td>
+				<td>${vo.createDate }</td>
+				<td>${vo.cnt }</td>
 			</tr>
+			</c:forEach>
 		</tbody>
 	</table>
+	<a href=addBoard.jsp>등록</a>
 </body>
 </html>

@@ -48,23 +48,24 @@ public class BoardDAO extends DAO {
 		}
 		return null;
 	}
-	
+
 	// 단건조회
 	public BoardVO getBoard(int boardNo) {
-		String sql ="select * from board1 where board_id =?";
+		String sql = "select * from board1 where board_id =?";
 		connect();
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, boardNo);
 			rs = pstmt.executeQuery();
-			if(rs.next()) {
-				BoardVO vo =new BoardVO();
+			if (rs.next()) {
+				BoardVO vo = new BoardVO();
 				vo.setBoardId(boardNo);
 				vo.setTitle(rs.getString("title"));
 				vo.setContent(rs.getString("content"));
 				vo.setWriter(rs.getString("writer"));
 				vo.setCreateDate(rs.getString("create_date"));
 				vo.setCnt(rs.getInt("cnt"));
+				updateCnt(boardNo);
 				return vo;
 			}
 		} catch (SQLException e) {
@@ -72,9 +73,10 @@ public class BoardDAO extends DAO {
 		} finally {
 			disconnect();
 		}
-	return null;
+		return null;
 	}
-	//조회수
+
+	// 조회수
 	public void updateCnt(int boardId) {
 		String sql = "update board1 set cnt= cnt+1 where board_id=?";
 		connect(); // conn
@@ -89,5 +91,61 @@ public class BoardDAO extends DAO {
 		} finally {
 			disconnect();
 		}
+	}
+
+	// 글 내용 수정.
+	public void updateBoard(BoardVO vo) {
+		String sql = "update board1 set title=?,content=? where board_id=?";
+		connect(); // conn
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, vo.getTitle());
+			pstmt.setString(2, vo.getContent());
+			pstmt.setInt(3, vo.getBoardId());
+			int r = pstmt.executeUpdate();
+			System.out.println(r + "건 업데이트.");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			disconnect();
+		}
+	}
+	
+	public void deleteBoard(BoardVO vo) {
+		String sql = "delete board1 where board_id=?";
+		connect(); // conn
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, vo.getBoardId());
+			int r = pstmt.executeUpdate();
+			System.out.println(r + "건 업데이트.");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			disconnect();
+		}
+	}
+	
+	public UserVO loginCheck(String id, String pass) {
+		String sql = "select * from users where id=? and passswd=?";
+		connect(); // conn
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1,id);
+			pstmt.setString(2,pass);
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				UserVO vo =new UserVO();
+				vo.setId(rs.getString("id"));
+				vo.setPasswd(rs.getString("passswd"));
+				vo.setName(rs.getString("name"));
+				return vo;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			disconnect();
+		}
+		return null;
 	}
 }

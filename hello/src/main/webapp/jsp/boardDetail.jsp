@@ -14,10 +14,6 @@
 	HttpSession sc = null;
 	String bno = request.getParameter("id");
 	BoardDAO dao = new BoardDAO();
-	sc = request.getSession();
-	if (sc.isNew()) {
-		dao.updateCnt(Integer.parseInt(bno));
-	}
 	BoardVO vo = dao.getBoard(Integer.parseInt(bno));
 	%>
 	<table border='1'>
@@ -46,6 +42,16 @@
 			<td><%=vo.getCnt()%></td>
 		</tr>
 	</table>
+	<%
+	String user = (String) session.getAttribute("loginId");
+	if (user !=null &&user.equals(vo.getWriter())) {
+	%>
+	<a href="updateForm.jsp?bno=<%=vo.getBoardId()%>">수정화면</a>
+	<a href="delete.jsp?bno=<%=vo.getBoardId()%>">삭제</a>
+	<%
+	}
+	%>
 	<a href="boardList.jsp">글목록으로</a>
+
 </body>
 </html>
