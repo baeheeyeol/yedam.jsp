@@ -2,6 +2,7 @@
 <%@page import="com.txt.borad.BoardDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,14 +17,16 @@
 	BoardDAO dao = new BoardDAO();
 	BoardVO vo = dao.getBoard(Integer.parseInt(bno));
 	%>
+	<c:set var="boards" value=<%=vo %>/>
+	
 	<table border='1'>
 		<tr>
 			<td>|글번호|</td>
-			<td><%=vo.getBoardId()%></td>
+			<td></td>
 		</tr>
 		<tr>
 			<td>|제목|</td>
-			<td><%=vo.getTitle()%></td>
+			<td><c:out value="${boards.title}"></c:out></td>
 		</tr>
 		<tr>
 			<td>|내용|</td>
@@ -44,7 +47,7 @@
 	</table>
 	<%
 	String user = (String) session.getAttribute("loginId");
-	if (user !=null &&user.equals(vo.getWriter())) {
+	if (user != null && user.equals(vo.getWriter())) {
 	%>
 	<a href="updateForm.jsp?bno=<%=vo.getBoardId()%>">수정화면</a>
 	<a href="delete.jsp?bno=<%=vo.getBoardId()%>">삭제</a>
