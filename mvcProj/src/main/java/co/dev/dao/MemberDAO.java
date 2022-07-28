@@ -40,7 +40,7 @@ public class MemberDAO {
 		}
 	}
 
-	// 입력처리.
+	// 입력처리 (vo)
 	public void insertMember(MemberVO vo) {
 		String sql = "insert into member(id,name,passwd,mail)values(?,?,?,?)";
 		connect();
@@ -114,7 +114,27 @@ public class MemberDAO {
 		connect();
 		try {
 			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1,id);
 			rs = pstmt.executeQuery();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			disconnect();
+		}
+	}
+
+	// 업데이트
+	public void updateMember(MemberVO vo) {
+		String sql = "update member " + "set name = ?" + " ,passwd = ?" + " ,mail= ? " + " where id = ?";
+		connect();
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, vo.getName());
+			pstmt.setString(2, vo.getPasswd());
+			pstmt.setString(3, vo.getMail());
+			pstmt.setString(4, vo.getId());
+			int r = pstmt.executeUpdate();
+			System.out.println(r + "건 변경");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {

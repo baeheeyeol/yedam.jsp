@@ -17,25 +17,25 @@ public class MemberSearchController implements Controller {
 			req.setAttribute("error", "id를 입력하세요.");
 			if (job.equals("search")) {
 				Utils.forward(req, resp, "memberView/memberSearch.jsp");
-				return;
 			} else if (job.equals("update")) {
 				Utils.forward(req, resp, "memberView/memberUpdate.jsp");
-				return;
+			} else if (job.equals("delete")) {
+				Utils.forward(req, resp, "memberView/memberDelete.jsp");
 			}
 		}
 		MemberService service = MemberService.getInstance();
-		MemberVO vo=service.getMember(id);
-		
-		if(vo==null) {
+		MemberVO vo = service.getMember(id);
+
+		if (vo == null) {
 			req.setAttribute("result", "검색된 정보가 없습니다.");
 		}
-		req.setAttribute("member",vo);
+		req.setAttribute("member", vo);
 		if (job.equals("search")) {
 			Utils.forward(req, resp, "memberResult/memberSearchOutput.jsp");
-			return;
 		} else if (job.equals("update")) {
 			Utils.forward(req, resp, "memberView/memberUpdate.jsp");
-			return;
+		} else if (job.equals("delete")) {
+			Utils.forward(req, resp, "memberView/memberDelete.jsp");
 		}
 	}
 }

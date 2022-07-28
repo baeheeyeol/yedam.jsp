@@ -1,21 +1,18 @@
 package co.dev.common;
 
-import java.io.IOException;
-import java.util.List;
-
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import co.dev.service.MemberService;
 
-public class MemberListController implements Controller {
+public class MemberDeleteController implements Controller {
 
 	@Override
 	public void execute(HttpServletRequest req, HttpServletResponse resp) {
+		String id = req.getParameter("id");
 		MemberService service = MemberService.getInstance();
-		req.setAttribute("list", service.memberList());
-		Utils.forward(req, resp, "memberResult/memberListOutput.jsp");
+		service.deleteMember(id);
+		Utils.forward(req, resp, "memberResult/memberDeleteOutput.jsp");
 	}
+
 }

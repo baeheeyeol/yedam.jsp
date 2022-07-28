@@ -7,6 +7,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import co.dev.service.MemberService;
 import co.dev.vo.MemberVO;
 
 public class MemberInsertController implements Controller {
@@ -24,7 +25,8 @@ public class MemberInsertController implements Controller {
 		vo.setMail(ml);
 		vo.setName(nm);
 		vo.setPasswd(pw);
-		// service.addMember(vo);
+		MemberService service=MemberService.getInstance();
+		service.addMember(vo);
 
 		// 요청처리 결과 뷰페이지 전송.
 		req.setAttribute("member", vo);

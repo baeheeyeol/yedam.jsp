@@ -15,5 +15,7 @@
 	<a href="memberView/memberSearch.jsp">회원조회</a>
 	<br>
 	<a href="memberView/memberUpdate.jsp">회원수정</a>
+	<br>
+	<a href="memberView/memberDelete.jsp">회원삭제</a>
 </body>
 </html>
